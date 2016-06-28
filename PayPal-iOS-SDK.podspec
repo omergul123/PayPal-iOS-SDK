@@ -11,18 +11,22 @@ Pod::Spec.new do |spec|
   spec.ios.deployment_target = '6.1'
   spec.requires_arc     = false
 
-  spec.default_subspec = 'Core', 'CardIO'
+  #spec.default_subspec = 'Core', 'CardIO'
+  spec.default_subspec = 'Core'
 
   spec.subspec 'Core' do |subspec|
-    subspec.source_files     = [ 'PayPalMobile/*.h' ]
+    subspec.source_files     = [ 'PayPalMobile/*.h',  'PayPalMobile/*.module']
     subspec.preserve_path    = [ 'PayPalMobile/*.a' ]
     subspec.frameworks       = 'Accelerate', 'AudioToolbox', 'AVFoundation', 'CoreLocation', 'CoreMedia', 'MessageUI', 'MobileCoreServices', 'SystemConfiguration'
     subspec.vendored_libraries = [ 'PayPalMobile/libPayPalMobile.a' ]
     subspec.compiler_flags   = '-fmodules', '-fmodules-autolink'
-    subspec.xcconfig         = { 'OTHER_LDFLAGS' => '-lc++ -ObjC'}
+    subspec.xcconfig         = { 'OTHER_LDFLAGS' => '-lc++ -ObjC', 'SWIFT_INCLUDE_PATHS' => '$(PODS_ROOT)/PayPalMobile'}
+    #'HEADER_SEARCH_PATHS' => '$(PODS_ROOT)/PayPalMobile'
+    subspec.module_map = 'PayPal-iOS-SDK.module'
+    subspec.preserve_paths = 'PayPal-iOS-SDK.module'
   end
 
-  spec.subspec 'CardIO' do |subspec|
-    subspec.dependency       'CardIO', '~> 5.3.2'
-  end
+  #spec.subspec 'CardIO' do |subspec|
+  #  subspec.dependency       'CardIO', '~> 5.3.2'
+  #end
 end

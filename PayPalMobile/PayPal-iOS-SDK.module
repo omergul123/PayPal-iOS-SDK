@@ -1,0 +1,6 @@
+framework module PayPal-iOS-SDK {
+  umbrella header "PayPalMobile.h"
+
+  export *
+  module * { export * }
+}
